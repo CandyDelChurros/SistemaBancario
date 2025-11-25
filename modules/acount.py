@@ -24,14 +24,15 @@ class Account:
                 if client.cpf == cpf:
                     client_found = client
                     break
-                if client_found is None:
-                    raise ValueError("Essa conta não existe")
+
+            if client_found is None:
+                raise ValueError("Essa conta não existe")
                             
-            numero_conta = Account.generate_account_number(db)
+            account_number = Account.generate_account_number(db)
 
             account = Account(
                 client=client_found,
-                tupe=type,
+                type=type,
                 number=account_number
             )
 
