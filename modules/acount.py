@@ -3,6 +3,7 @@ class Account:
         self.client = client
         self.type = type
         self.number = number
+        self.bank = bank
         self.balance = 0.0
         self.status = "Ativa"
 
