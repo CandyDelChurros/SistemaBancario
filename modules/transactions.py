@@ -80,7 +80,7 @@ class Transactions:
                 raise ValueError("Saldo baixo")
             
             account_from.balance -= balance
-            account_to.balance += amount
+            account_to.balance += balance
 
             return {
                 "status": "ok",
