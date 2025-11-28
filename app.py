@@ -91,4 +91,29 @@ def operations_menu(account):
         except Exception as e:
             print("Algo de errado aconteceu:", e)
 
+def main():
+    logged_account = None
 
+    while True:
+
+        if logged_account is None:
+            print("1 - Registrar Cliente")
+            print("2 - Login")
+            option = input("Escolha 1 numero ")
+
+            if option == "1":
+                logged_account = register_user()
+
+            elif option == "2":
+                logged_account = login_user()
+
+            else:
+                print("Opção Invalida")
+
+        else:
+            operations_menu(logged_account)
+            logged_account = None 
+
+
+if __name__ == "__main__":
+    main()

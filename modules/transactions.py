@@ -3,27 +3,26 @@ class Transactions:
     @staticmethod
     def find_account(db, number):
         for account in db["accounts"]:
-            if account in db["accounts"]:
-                if account.number == number:
-                    return account
+            if account.number == number:
+                return account
         return None
     
     @staticmethod
-    def deposit(db,number, balance):
+    def deposit(db, number, balance):
         try:
             account = Transactions.find_account(db, number)
 
             if account is None:
-                raise ValueError("Não existe")
+                raise ValueError("Account not found.")
             
             if balance <= 0:
-                raise ValueError("Valor tem de ser maior que zero")
+                raise ValueError("Value must be greater than zero.")
             
             account.balance += balance
 
             return {
                 "status": "ok",
-                "mensagem": f"Deposito de R$ {balance:2.f} concluido",
+                "mensagem": f"Deposit of R$ {balance:.2f} completed.",
                 "saldo_atual": account.balance
             }
         
@@ -31,7 +30,7 @@ class Transactions:
             return {"status": "erro", "mensagem": str(error)}
         
         except Exception as error:
-            return {"status": "erro", "mensagem": f"Deu Erro"}
+            return {"status": "erro", "mensagem": f"Unexpected error: {error}"}
     
     @staticmethod
     def withdraw(db, number, balance):
@@ -39,19 +38,19 @@ class Transactions:
             account = Transactions.find_account(db, number)
 
             if account is None:
-                raise ValueError("Não existe")
+                raise ValueError("Account not found.")
             
             if balance <= 0:
-                raise ValueError("Valor tem de ser maior que zero")
+                raise ValueError("Value must be greater than zero.")
             
             if account.balance < balance:
-                raise ValueError("Saldo Baixo")
+                raise ValueError("Insufficient balance.")
             
-            account.balance += balance
+            account.balance -= balance
 
             return {
                 "status": "ok",
-                "mensagem": f"Saque de R$ {balance:2.f} concluido",
+                "mensagem": f"Withdrawal of R$ {balance:.2f} completed.",
                 "saldo_atual": account.balance
             }
         
@@ -59,7 +58,7 @@ class Transactions:
             return {"status": "erro", "mensagem": str(error)}
         
         except Exception as error:
-            return {"status": "erro", "mensagem": f"Deu Erro"}
+            return {"status": "erro", "mensagem": f"Unexpected error: {error}"}
 
     @staticmethod
     def transfer(db, number_from, number_to, balance):
@@ -68,23 +67,23 @@ class Transactions:
             account_to = Transactions.find_account(db, number_to)
 
             if account_from is None:
-                raise ValueError("Não existe")
+                raise ValueError("Origin account not found.")
             
             if account_to is None:
-                raise ValueError("Conta de destino não encontrada")
+                raise ValueError("Destination account not found.")
             
             if balance <= 0:
-                raise ValueError("Valor tem de ser maior que zero")
+                raise ValueError("Value must be greater than zero.")
             
-            if account_from.balace < balance:
-                raise ValueError("Saldo baixo")
+            if account_from.balance < balance:
+                raise ValueError("Insufficient balance.")
             
             account_from.balance -= balance
             account_to.balance += balance
 
             return {
                 "status": "ok",
-                "mensagem": f"Tranferencia de R$ {balance:2.f} concluida",
+                "mensagem": f"Transfer of R$ {balance:.2f} completed.",
                 "origem": account_from.balance,
                 "destino": account_to.balance
             }
@@ -93,15 +92,15 @@ class Transactions:
             return {"status": "erro", "mensagem": str(error)}
         
         except Exception as error:
-            return {"status": "erro", "mensagem": f"Deu Erro"}
+            return {"status": "erro", "mensagem": f"Unexpected error: {error}"}
 
     @staticmethod
-    def statement (db,number):
+    def statement(db, number):
         try:
-            account = Transactions.find_account(db,number)
+            account = Transactions.find_account(db, number)
 
             if account is None:
-                raise ValueError("Conta não existe")
+                raise ValueError("Account not found.")
             
             return {
                 "status": "ok",
@@ -116,5 +115,4 @@ class Transactions:
             return {"status": "erro", "mensagem": str(error)}
         
         except Exception as error:
-            return {"status": "erro", "mensagem": f"Deu Erro"}
-
+            return {"status": "erro", "mensagem": f"Unexpected error: {error}"}
