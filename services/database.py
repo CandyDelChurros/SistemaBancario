@@ -1,0 +1,5 @@
+db = {
+    "clients": [],
+    "accounts":[],
+    "transactions":[]
+}

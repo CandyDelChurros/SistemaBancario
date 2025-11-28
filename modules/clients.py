@@ -4,6 +4,7 @@ class Client:
         self.cpf = cpf
         self.phone = phone
 
+    @staticmethod
     def sign_client(db, name, cpf, phone):
         try:
             if name.strip() == "":
@@ -46,5 +47,5 @@ class Client:
         except Exception as error:
             return {
                 "status": "erro",
-                "mensagem": f"Erro inesperado ao cadastrar cliente: {error}"
+                "mensagem": f"Erro ao cadastrar cliente: {error}"
             }
