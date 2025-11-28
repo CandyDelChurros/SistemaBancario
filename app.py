@@ -1,7 +1,7 @@
-from clients import Client
-from account import Account
-from transactions import Transactions
-from database import db
+from modules.clients import Client
+from modules.account import Account
+from modules.transactions import Transactions
+from services.database import db
 
 
 def login_user():
